@@ -10,4 +10,14 @@ module.exports = {
     dialect: 'postgres',
     // ssl: true,
   },
+
+  gmail: {
+    email: process.env.EMAIL,
+    ballotgo_email: process.env.BALLOTGO_EMAIL,
+    ballotgo_password: process.env.BALLOTGO_EMAIL_PASSWORD,
+  },
+
+  jwt: {
+    jwt_secret: process.env.JWT_SECRET,
+  },
 };

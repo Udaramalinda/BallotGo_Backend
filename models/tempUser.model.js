@@ -1,8 +1,8 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/db'); // Adjust the path as necessary
+const sequelize = require('../config/db');
 
-const User = sequelize.define(
-  'User',
+const TempUser = sequelize.define(
+  'TempUser',
   {
     identity_card_number: {
       type: DataTypes.STRING(20),
@@ -30,11 +30,19 @@ const User = sequelize.define(
       type: DataTypes.STRING(100),
       allowNull: false,
     },
+    otp_hash: {
+      type: DataTypes.STRING(255), // Store the hashed OTP
+      allowNull: false,
+    },
+    otp_expires_at: {
+      type: DataTypes.DATE, // When the OTP will expire
+      allowNull: false,
+    },
   },
   {
-    tableName: 'user',
-    timestamps: true, // Automatically adds createdAt and updatedAt timestamps
+    tableName: 'temp_user',
+    timestamps: true, // Adds createdAt timestamp
   }
 );
 
-module.exports = User;
+module.exports = TempUser;

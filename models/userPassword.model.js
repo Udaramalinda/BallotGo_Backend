@@ -16,6 +16,11 @@ const UserPassword = sequelize.define('UserPassword', {
     type: DataTypes.STRING(255),
     allowNull: false,
   },
+  role: {
+    type: DataTypes.STRING(20),
+    allowNull: false,
+    defaultValue: 'USER',
+  },
   created_at: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
