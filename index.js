@@ -1,24 +1,17 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-
-// import the necessary modules
-const sequelize = require("./config/db");
-
-// import the routes
-const userRoutes = require("./routes/user.routes");
-const candidateRoutes = require("./routes/candidate.routes");
-
-// import the models
-const { User } = require("./models/user.model");
-const { UserPassword } = require("./models/userPassword.model");
-const { TempUser } = require("./models/tempUser.model");
 const cors = require("cors");
 
-module.exports = {
-  User,
-  UserPassword,
-  TempUser,
-};
+// import the necessary modules
+const sequelize = require('./config/db');
+
+// Admin create function
+const createAdmin = require('./config/admin');
+
+// import the routes
+const userRoutes = require('./routes/user.routes');
+const candidateRoutes = require('./routes/candidate.routes');
+const electionRoutes = require('./routes/election.routes');
 
 const app = express();
 app.use(bodyParser.json());
@@ -40,8 +33,9 @@ app.get("/", (req, res) => {
 });
 
 // use the routes
-app.use("/api/user", userRoutes);
-app.use("/api/candidate", candidateRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/candidate', candidateRoutes);
+app.use('/api/election', electionRoutes);
 
 try {
   sequelize.authenticate();
@@ -50,12 +44,9 @@ try {
   console.error("Unable to connect to the database:", error);
 }
 
-// sequelize
-//   .sync({ force: true })
-//   .then(() => {
-//     console.log("Database connected and models synchronized");
-//   })
-//   .catch((err) => console.error("Error connecting to the database:", err));
+// sequelize.sync({ force: true }).then(() => {
+//   console.log('Database connected and models synchronized');
+// }).catch(err => console.error('Error connecting to the database:', err));
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
