@@ -1,5 +1,6 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
 // import the necessary modules
 const sequelize = require('./config/db');
@@ -17,9 +18,18 @@ app.use(bodyParser.json());
 
 const port = 3000;
 
-app.get('/', (req, res) => {
+// Use CORS middleware
+app.use(
+  cors({
+    origin: "*", // Allow only requests from this origin
+    methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed methods if needed
+    credentials: true, // Include this if you need to send cookies or other credentials
+  })
+);
+
+app.get("/", (req, res) => {
   // run the coomand "npm run dev" start backend using the nodemon
-  res.send('This is BallotGo Backend!');
+  res.send("This is BallotGo Backend!");
 });
 
 // use the routes
@@ -29,14 +39,13 @@ app.use('/api/election', electionRoutes);
 
 try {
   sequelize.authenticate();
-  console.log('Connection has been established successfully.');
+  console.log("Connection has been established successfully.");
 } catch (error) {
-  console.error('Unable to connect to the database:', error);
+  console.error("Unable to connect to the database:", error);
 }
 
 // sequelize.sync({ force: true }).then(() => {
 //   console.log('Database connected and models synchronized');
-//   createAdmin();
 // }).catch(err => console.error('Error connecting to the database:', err));
 
 app.listen(port, () => {
