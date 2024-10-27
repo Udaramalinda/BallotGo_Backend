@@ -3,6 +3,7 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config').jwt;
 const { sendOtpEmail } = require('../utils/otp.service');
+const { publicKey } = require('../trusted_authority/authorityKeys');
 
 const User = require('../models/user.model');
 const UserPassword = require('../models/userPassword.model');
@@ -141,12 +142,11 @@ const loginUser = async (req, res) => {
       { expiresIn: '1h' }
     );
 
-    res.status(200).json({ message: 'Login successful!', token });
-  }
-  catch (error) {
+    res.status(200).json({ message: 'Login successful!', token, publicKey });
+  } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
   }
-}
+};
 
 module.exports = { registerUser, verifyOtpAndRegisterPassword, loginUser };
