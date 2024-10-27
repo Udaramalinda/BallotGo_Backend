@@ -1,8 +1,8 @@
 const e = require('express');
-const { publicKey, privateKey } = require('../authorityKeys');
+const { publicKeyPem, privateKey } = require('../authorityKeys');
 
 const requestKeys = async (req, res) => {
-  res.status(200).json(publicKey);
+  res.status(200).json(publicKeyPem);
 };
 
 module.exports = { requestKeys };

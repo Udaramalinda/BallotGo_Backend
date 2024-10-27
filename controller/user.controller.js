@@ -3,7 +3,8 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config').jwt;
 const { sendOtpEmail } = require('../utils/otp.service');
-const { publicKey } = require('../trusted_authority/authorityKeys');
+const { publicKeyPem } = require('../trusted_authority/authorityKeys');
+const { sendLoginConfirmation } = require('../utils/email.service');
 
 const User = require('../models/user.model');
 const UserPassword = require('../models/userPassword.model');
@@ -16,7 +17,6 @@ const generateOTP = () => {
 
 // Controller to handle user registration (without password)
 const registerUser = async (req, res) => {
-
   const {
     identity_card_number,
     name,
@@ -142,7 +142,13 @@ const loginUser = async (req, res) => {
       { expiresIn: '1h' }
     );
 
-    res.status(200).json({ message: 'Login successful!', token, publicKey });
+    // Send login confirmation email
+    const user = await User.findOne({
+      where: { identity_card_number },
+    });
+    await sendLoginConfirmation(user.email);
+
+    res.status(200).json({ message: 'Login successful!', token, publicKeyPem });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });

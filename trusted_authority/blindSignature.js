@@ -1,17 +1,13 @@
-const blindSignatures = require('blind-signatures');
-const { key } = require('./authorityKeys');
+const forge = require('node-forge');
+const { keypair, publicKeyPem, privateKey } = require('./authorityKeys');
 
 const voteBlindSignature = async (blindedVote) => {
-  const signedBlindedVote = blindSignatures.sign({
-    blinded: blindedVote,
-    key: {
-      N: key.keyPair.n.toString(),
-      d: key.keyPair.d.toString(),
-    },
-  });
+  const md = forge.md.sha256.create();
+  md.update(blindedVote, 'hex');
+  const signature = privateKey.sign(md);
+  const signatureHex = forge.util.bytesToHex(signature);
 
-  console.log('Signed Blinded Vote:', signedBlindedVote);
-  return signedBlindedVote;
+  return signatureHex;
 };
 
 module.exports = { voteBlindSignature };

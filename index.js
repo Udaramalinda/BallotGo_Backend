@@ -13,6 +13,7 @@ const userRoutes = require('./routes/user.routes');
 const candidateRoutes = require('./routes/candidate.routes');
 const electionRoutes = require('./routes/election.routes');
 const voteRoutes = require('./routes/vote.routes');
+const voteControlRoutes = require('./routes/voteControl.routes');
 
 const app = express();
 app.use(bodyParser.json());
@@ -38,6 +39,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/candidate', candidateRoutes);
 app.use('/api/election', electionRoutes);
 app.use('/api/vote', voteRoutes);
+app.use('/api/control', voteControlRoutes);
 
 try {
   sequelize.authenticate();

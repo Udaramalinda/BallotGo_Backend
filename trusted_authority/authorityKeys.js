@@ -1,8 +1,8 @@
-const NodeRSA = require('node-rsa');
+const forge = require('node-forge');
 
-// Generate RSA key pair
-const key = new NodeRSA({b: 512});
-const publicKey = key.exportKey('public');
-const privateKey = key.exportKey('private');
+const keypair = forge.pki.rsa.generateKeyPair(512);
+const publicKeyPem = forge.pki.publicKeyToPem(keypair.publicKey);
+const privateKey = keypair.privateKey;
 
-module.exports = { key, publicKey, privateKey };
+
+module.exports = { keypair, publicKeyPem, privateKey };
