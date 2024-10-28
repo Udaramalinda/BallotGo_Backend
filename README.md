@@ -115,3 +115,7 @@ The combination of end-to-end encryption, individual verifiability, and universa
 ---
 
 ## Contribution
+
+   1. > [Udara Wijesinghe](https://github.com/Udaramalinda)
+   2. > [Vishvadini Kurukulasooriya](https://github.com/Zury7)
+   3. > [Sanuja Edirisinghe](https://github.com/sanujaediri)
