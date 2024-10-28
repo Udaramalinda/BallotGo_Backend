@@ -7,9 +7,6 @@ const authorizeRole = (roles) => {
         const authHeader = req.headers['authorization'];
         const token = authHeader && authHeader.split(' ')[1]; // Extract token
 
-        console.log('Token:', token);
-        console.log('Roles:', roles);
-
         if (!token) {
             return res.status(401).json({ message: 'Access denied. No token provided.' });
         }
