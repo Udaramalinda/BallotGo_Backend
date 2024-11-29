@@ -1,6 +1,6 @@
 # BallotGo - E-Voting Application Backend
 
-> [Frontend Repository for BallotGo](https://github.com/BallotGo/BallotGo_Frontend)
+[Frontend Repository for BallotGo](https://github.com/BallotGo/BallotGo_Frontend)
 
 Welcome to the backend repository for **BallotGo**, an e-voting application designed for secure, verifiable, and user-friendly electronic voting processes. This backend supports core functionalities, including authentication, candidate and election management, and vote processing with blind signatures for added security.
 
